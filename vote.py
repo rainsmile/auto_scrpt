@@ -213,7 +213,7 @@ if __name__ == "__main__":
             if host:
                 browser = connect_browser(host, selenium_path)
                 connect_wallet(browser)
-                # vote(driver=browser, key_word=key_words)
+                vote(driver=browser, key_word=key_words)
                 close_browser(user_id)
             else:
                 time.sleep(1)
