@@ -127,6 +127,9 @@ def connect_browser(selenium_host, path):
     time.sleep(3)
     current_window = driver.current_window_handle
     all_windows = driver.window_handles
+    for i in range(1, len(all_windows)):
+        driver.switch_to.window(all_windows[i])
+        driver.close()
     driver.switch_to.window(all_windows[0])
     # if serial_number != driver.title:
     #     driver.switch_to.window(all_windows[0])
@@ -143,7 +146,6 @@ def find_element_by_xpath(driver, xpath, timeout=10):
 
 # 创建小狐狸钱包账号
 def create_wallet(driver):
-    driver.switch_to.window(driver.current_window_handle)
     driver.get('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/home.html#onboarding/welcome')
     # 勾选使用条款
     time.sleep(3)

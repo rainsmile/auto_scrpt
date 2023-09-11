@@ -203,7 +203,7 @@ if __name__ == "__main__":
         if ts_l[i].find('-') != -1:
             for s_num in range(int(ts_l[i].split('-')[0]), int(ts_l[i].split('-')[1])+1):
                 user_id = get_list(s_num)
-                host, selenium_path =  open_ads_browser(user_id, s_num)
+                host, selenium_path = open_ads_browser(user_id, s_num)
                 if host:
                     browser = connect_browser(host, selenium_path)
                     # connect_wallet(browser)
