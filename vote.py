@@ -131,6 +131,7 @@ def connect_wallet(driver):
         search_returnPoint("sign_in.png")
         print("登录钱包成功")
 
+
 def vote(driver, key_word):
     driver.get('https://arcana.p12.games/')
     xpath = '//*[@id="galleryLeaderboard"]/div[1]/div[2]/div[2]/div/input'
@@ -146,9 +147,6 @@ def vote(driver, key_word):
     xpath = '//*[@id=":rg:"]/div/div[2]/div[5]/div[2]/div[1]/p[2]'
     element = find_element_by_xpath(driver, xpath)
     element.click()
-    xpath = '//*[@id=":rg:"]/div/div[2]/div[5]/div[1]/input'
-    element = find_element_by_xpath(driver, xpath)
-    element.send_keys('')
     xpath = '//*[@id=":rg:"]/div/div[2]/div[5]/button'
     element = find_element_by_xpath(driver, xpath)
     element.click()
@@ -175,9 +173,6 @@ def vote(driver, key_word):
     xpath = '//*[@id=":rg:"]/div/div[2]/div[5]/div[2]/div[1]/p[2]'
     element = find_element_by_xpath(driver, xpath)
     element.click()
-    xpath = '//*[@id=":rg:"]/div/div[2]/div[5]/div[1]/input'
-    element = find_element_by_xpath(driver, xpath)
-    element.send_keys('')
     xpath = '//*[@id=":rg:"]/div/div[2]/div[5]/button'
     element = find_element_by_xpath(driver, xpath)
     element.click()
