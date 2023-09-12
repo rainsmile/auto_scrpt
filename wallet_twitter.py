@@ -148,16 +148,14 @@ def find_element_by_xpath(driver, xpath, timeout=10):
 def create_wallet(driver):
     driver.get('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/home.html#onboarding/welcome')
     # 勾选使用条款
-    time.sleep(3)
-    try:
-        xpath = '//*[@id="onboarding__terms-checkbox"]'
-        element = find_element_by_xpath(driver, xpath)
-        element.click()
-    except WebDriverException:
-        time.sleep(3)
-        xpath = '//*[@id="onboarding__terms-checkbox"]'
-        element = find_element_by_xpath(driver, xpath)
-        element.click()
+    while True:
+        try:
+            xpath = '//*[@id="onboarding__terms-checkbox"]'
+            element = find_element_by_xpath(driver, xpath)
+            element.click()
+            break
+        except Exception as e:
+            time.sleep(1)
     # 点击创建新钱包
     xpath = '//*[@id="app-content"]/div/div[2]/div/div/div/ul/li[2]/button'
     element = find_element_by_xpath(driver, xpath)
@@ -225,17 +223,27 @@ def create_wallet(driver):
     element = find_element_by_xpath(driver, xpath)
     element.click()
     print("创建钱包成功")
+    time.sleep(2)
     return
 
 
 # 绑定推特
 def connect_twitter(driver, twitter_token):
-    driver.get('https://twitter.com/?lang=zh')
+    try:
+        driver.get('https://twitter.com/?lang=zh')
+    except Exception as e:
+        driver.get('https://twitter.com/?lang=zh')
     # 注入cookie
     print({"name": 'auth_token', "value": twitter_token})
     driver.add_cookie({"name": 'auth_token', "value": twitter_token})
     driver.refresh()
+    time.sleep(2)
     print("进入Twitter")
+
+
+def close_browser(user_id):
+    url = f'http://local.adspower.net:50325/api/v1/browser/stop?user_id={user_id}'
+    requests.get(url=url)
 
 
 if __name__ == "__main__":
@@ -247,41 +255,12 @@ if __name__ == "__main__":
     task_id = f.read()
     f.close()
     ts_l = task_id.split(',')
-    if len(task_id) == 0:
-        for i in range(len(twitter_tokens)):
-            id, serial_id = create_browser(group_id_)
-            host, chrome_driver = open_ads_browser(id, serial_id)
-            browser = connect_browser(host, chrome_driver)
-            create_wallet(browser)
-            twitter_token_ = twitter_tokens[i].split('----')[-1]
-            connect_twitter(browser, twitter_token_.replace('\n', ''))
-            browser.close()
-    else:
-        m = 0
-        for i in range(len(ts_l)):
-            if ts_l[i].find('-') != -1:
-                for s_num in range(int(ts_l[i].split('-')[0]), int(ts_l[i].split('-')[1]) + 1):
-                    user_id = get_list(s_num)
-                    host, selenium_path = open_ads_browser(user_id, s_num)
-                    if host:
-                        browser = connect_browser(host, selenium_path)
-                        create_wallet(browser)
-                        twitter_token_ = twitter_tokens[m].split('----')[-1]
-                        connect_twitter(browser, twitter_token_.replace('\n', ''))
-                        m += 1
-                        browser.close()
-                    else:
-                        time.sleep(1)
-            else:
-                user_id = get_list(int(ts_l[i]))
-                host, selenium_path = open_ads_browser(user_id, int(ts_l[i]))
-                if host:
-                    browser = connect_browser(host, selenium_path)
-                    create_wallet(browser)
-                    twitter_token_ = twitter_tokens[m].split('----')[-1]
-                    connect_twitter(browser, twitter_token_.replace('\n', ''))
-                    m += 1
-                    browser.close()
-                else:
-                    time.sleep(1)
+    for i in range(len(twitter_tokens)):
+        id, serial_id = create_browser(group_id_)
+        host, chrome_driver = open_ads_browser(id, serial_id)
+        browser = connect_browser(host, chrome_driver)
+        create_wallet(browser)
+        twitter_token_ = twitter_tokens[i].split('----')[-1]
+        connect_twitter(browser, twitter_token_.replace('\n', ''))
+        close_browser(id)
 
