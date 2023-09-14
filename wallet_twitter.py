@@ -248,19 +248,21 @@ def close_browser(user_id):
 
 if __name__ == "__main__":
     group_id_ = search_group()
-    twitter_f = open('twitter.txt', 'r')
-    twitter_tokens = twitter_f.readlines()
-    twitter_f.close()
-    f = open('task_id.txt')
-    task_id = f.read()
-    f.close()
-    ts_l = task_id.split(',')
-    for i in range(len(twitter_tokens)):
+    # twitter_f = open('twitter.txt', 'r')
+    # twitter_tokens = twitter_f.readlines()
+    # twitter_f.close()
+    # f = open('task_id.txt')
+    # task_id = f.read()
+    # f.close()
+    # ts_l = task_id.split(',')
+    # 新建浏览器数量
+    num = 10
+    for i in range(num):
         id, serial_id = create_browser(group_id_)
         host, chrome_driver = open_ads_browser(id, serial_id)
         browser = connect_browser(host, chrome_driver)
         create_wallet(browser)
-        twitter_token_ = twitter_tokens[i].split('----')[-1]
-        connect_twitter(browser, twitter_token_.replace('\n', ''))
+        # twitter_token_ = twitter_tokens[i].split('----')[-1]
+        # connect_twitter(browser, twitter_token_.replace('\n', ''))
         close_browser(id)
 
