@@ -134,14 +134,14 @@ def connect_wallet(driver):
 
 def vote(driver, key_word):
     driver.get('https://arcana.p12.games/')
-    xpath = '//*[@id="galleryLeaderboard"]/div[1]/div[2]/div[2]/div/input'
+    xpath = '//*[@id="galleryLeaderboard"]/div/div[1]/div[2]/div[2]/div/input'
     element = find_element_by_xpath(driver, xpath)
     element.send_keys(key_word)
-    xpath = '//*[@id="galleryLeaderboard"]/div[1]/div[2]/div[2]/div/img'
+    xpath = '//*[@id="galleryLeaderboard"]/div/div[1]/div[2]/div[2]/div/img'
     element = find_element_by_xpath(driver, xpath)
     element.click()
     time.sleep(2)
-    xpath = '//*[@id="galleryLeaderboard"]/div[2]/div[1]/div/div[1]'
+    xpath = '//*[@id="galleryLeaderboard"]/div/div[2]/div[1]/div/div'
     element = find_element_by_xpath(driver, xpath)
     element.click()
     xpath = '//*[@id=":rg:"]/div/div[2]/div[5]/div[2]/div[1]/p[2]'
@@ -155,19 +155,19 @@ def vote(driver, key_word):
     xpath = '//*[@id="task"]'
     element = find_element_by_xpath(driver, xpath)
     element.click()
-    xpath = '//*[@id="panel:r6:1"]/div/div/div[2]/div/div[2]'
+    xpath = '//*[@id="panelundefined"]/div/div/div[2]/div/div[2]'
     element = find_element_by_xpath(driver, xpath)
     element.click()
     # 再次投票
     driver.get('https://arcana.p12.games/')
-    xpath = '//*[@id="galleryLeaderboard"]/div[1]/div[2]/div[2]/div/input'
+    xpath = '//*[@id="galleryLeaderboard"]/div/div[1]/div[2]/div[2]/div/input'
     element = find_element_by_xpath(driver, xpath)
     element.send_keys(key_word)
-    xpath = '//*[@id="galleryLeaderboard"]/div[1]/div[2]/div[2]/div/img'
+    xpath = '//*[@id="galleryLeaderboard"]/div/div[1]/div[2]/div[2]/div/img'
     element = find_element_by_xpath(driver, xpath)
     element.click()
     time.sleep(2)
-    xpath = '//*[@id="galleryLeaderboard"]/div[2]/div[1]/div/div[1]'
+    xpath = '//*[@id="galleryLeaderboard"]/div/div[2]/div[1]/div/div'
     element = find_element_by_xpath(driver, xpath)
     element.click()
     xpath = '//*[@id=":rg:"]/div/div[2]/div[5]/div[2]/div[1]/p[2]'
